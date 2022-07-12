@@ -1,0 +1,9 @@
+torch
+torchvision
+hydra-core
+wandb
+scikit-learn
+matplotlib
+scipy
+seaborn
+pandas

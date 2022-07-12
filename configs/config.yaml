@@ -1,0 +1,44 @@
+work_dir: ${hydra:runtime.cwd}
+data_dir: ${work_dir}/dataset/data/
+
+wandb_logger:
+  project: 'spatiospatial'
+  entity: 'nizamani'
+  group: 'Resnet_2p1'
+
+dataset_:
+  _target_: dataset.datasets.Datasets
+  dataset_path: ${work_dir}/dataset/data/
+
+global_seed: 341
+
+dataset:
+  img_scale_factor: 0.7
+  train_test_split_seed: 55
+  
+training:
+  num_classes: 3
+  batch_size: 1
+  learning_rate: 0.001
+  num_epoch : 2
+  num_workers : 5
+  dropout: 0.5
+  weight_decay: 0.001
+
+pretrain: False
+
+models:
+  # model: 'resnet2p1'
+  # model: 'resnet_mixed_conv'
+  model: '3dconv'
+
+resnet2p1Stem:
+  _target_: stems.resnet2p1.R2Plus1dStem4MRI
+resnet_mixed_convStem:
+  _target_: stems.resnet_mixed_conv.modifybasicstem
+conv3dStem:
+  _target_: stems.3dconv.modifybasicstem
+  
+  
+load_model: False
+device: 'cpu'
